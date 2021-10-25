@@ -96,20 +96,27 @@
             // submit register form 
             $('#qrcodeForm').submit(function(e) {
                 e.preventDefault();
+                generatorBtn.disabled = true;
                 genLoader.hidden = false;
-                payload= { phone : myPhone.value}
+                generateBtn.hidden=true;
                 
-                //  axios.get('https://whatsapp.creditclan.com/api/sender/generate/qr'+payload)
-                 axios.get('https://api.whatsapp.com/send?phone='+myPhone.value)
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        // pageLoader.innerHTML = `<span class='alert alert-danger d-flex justify-content-center text-center'>Connection Error!  <span>`;
-                        // location.href= " login.html";
-                    })
+                payload= { phone : myPhone.value};
+                // axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+                // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+                //  axios.get('https://api.whatsapp.com/send?phone='+myPhone.value)
+                axios.post('https://whatsapp.creditclan.com/api/sender/generate/qr', payload)
+                .then(response => {
+                    console.log(response);
                     genLoader.hidden = true;
+                    generateBtn.hidden=false;
+                })
+                .catch(error => {
+                    console.log(error);
+                    genLoader.hidden = true;
+                    generateBtn.hidden=false;
+                    // pageLoader.innerHTML = `<span class='alert alert-danger d-flex justify-content-center text-center'>Connection Error!  <span>`;
+                    // location.href= " login.html";
+                })
             });
         });
 	</script>
