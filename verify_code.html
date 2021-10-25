@@ -97,8 +97,10 @@
             $('#qrcodeForm').submit(function(e) {
                 e.preventDefault();
                 genLoader.hidden = false;
+                payload= { phone : myPhone.value}
                 
-                 axios.get('https://whatsapp.creditclan.com/api/sender/generate/qr')
+                //  axios.get('https://whatsapp.creditclan.com/api/sender/generate/qr'+payload)
+                 axios.get('https://api.whatsapp.com/send?phone='+myPhone.value)
                     .then(response => {
                         console.log(response);
                     })
