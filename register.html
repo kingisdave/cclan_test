@@ -14,7 +14,6 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
-    <!-- <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="assets/css/app.css">
 
@@ -56,27 +55,29 @@
     </nav> -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 p-5" style="background:#45608D; height: 100vh">
+            <div class="col-md-6 col-lg-6 d-flex text-wrap justify-items-center align-items-center signImage wrapperColor" style="height: 100vh">
                 <div class="mx-auto w-75">
                     <img src="assets/images/app_icon.svg" class="img-fluid" />
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6" style="background: #F0F0F0; height: 100vh">
-                <div class="text-secondary">
-                    <span class="fa fa-creditclan mx-auto text-center"></span>
-                    <div class="card border-0 mx-auto" style="width: 80%;">
+            <div class="col-12 col-md-6 col-lg-6 d-flex text-wrap justify-content-center align-items-center" style="background: #F0F0F0; height: 100vh">
+                <div>
+                    <div class="text-center my-4">
+                        <img class="img-fluid topLogo" src="assets/images/creditclan.png" alt="creditclan.png" width="30" />
+                    </div>
+                    <div class="card border-0" style="width: 350px;">
                         <div class="card-body">
                             <form id="registForm" class="form my-3" method="POST">
                                 <span class="small text-success text-center" id="registerMessage"></span>
                                 <!-- <span class="alert alert-success text-center" id="registerMessage" hidden></span> -->
                                 <div class="form-group my-3">
                                     <label>Email</label>
-                                    <input type="email" name="email" oninput="myinp('email')" placeholder="hello@example.com" class="form-control" id="email" required>
+                                    <input type="email" name="email" oninput="reginput('email')" placeholder="hello@example.com" class="form-control" id="email" required>
                                     <span id="emailRes"></span>
                                 </div>
                                 <div class="form-group my-3">
                                     <label>Phone</label>
-                                    <input type="text" name="phoneNo" oninput="myinp('phoneNo')" placeholder="08145191348" class="form-control" id="phoneNo" required>
+                                    <input type="text" name="phoneNo" oninput="reginput('phoneNo')" placeholder="08145191348" class="form-control" id="phoneNo" required>
                                     <span id="phoneNoRes"></span>
                                 </div>
                                 <div>
@@ -95,19 +96,21 @@
                                 </div>
                                 <div class="form-group my-3">
                                     <label>Full name</label>
-                                    <input type="text" name="fullName" oninput="myinp('fullName')" placeholder="Creditclan Technologies Limited" class="form-control" id="fName" required>
+                                    <input type="text" name="fullName" oninput="reginput('fullName')" placeholder="Creditclan Technologies Limited" class="form-control" id="fName" required>
                                     <span id="fNameRes"></span>
                                 </div>
                                 <div class="form-group my-3">
                                     <label>Password</label>
-                                    <input type="password" name="password" oninput="myinp('password')" placeholder="password" class="form-control" id="password" required>
                                     <span onClick="togimage()" class="btn showPassBtn">
                                         <img src="assets/images/eye.png" alt='eye-open' id='imgmi' width='25px'/>
                                     </span>
+                                    <input type="password" name="password" oninput="reginput('password')" placeholder="password" class="form-control" id="password" required>
                                     <span id="passwordRes"></span>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <button type="submit" class="btn form-control text-white" name="createAccount" id="createAccBtn" style="background:#007BFF;"><span id="registerBtn">Create account </span><span class="fa fa-spin fa-spinner" id="loader" hidden=""></span></button>
+                                    <button type="submit" class="btn form-control text-white" name="createAccount" id="createAccBtn" disabled style="background:#007BFF;">
+                                        <span id="registerBtn">Create account </span><span class="fa fa-spin fa-spinner" id="regloader" hidden=""></span>
+                                    </button>
                                 </div>
                                 <p class="my-2 text-center"><a href="login.html" class="text-decoration-none">Sign in </a> to your account</p>
                             </form>
@@ -117,67 +120,10 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        createAccBtn.disabled=true;
-        let state = false;
-
-        // function for the input value errors display
-        myinp=(e)=>{
-            if (e == 'fullName') {
-                if(fName.value != '' && fName.value.length >= 3){
-                    fNameRes.innerHTML = "";
-                } else{
-                    fNameRes.innerHTML = "<small class='text-danger'>Enter your Name</small>";
-                }
-            }
-            else if (e == 'email') {
-                if(email.value == ''){
-                    emailRes.innerHTML = "<small class='text-danger'>Enter your email</small>";
-                } else if (email.value.length <= 3) {
-                    emailRes.innerHTML = "<small class='text-danger'>Enter atleast 4 characters</small>";
-                } else{
-                    emailRes.innerHTML = "";
-                }
-            }
-            else if (e == 'phoneNo') {
-                if(phoneNo.value == ''){
-                    phoneNoRes.innerHTML = "<small class='text-danger'>Enter your phone Number</small>";
-                } else if (phoneNo.value.length <= 3) {
-                    phoneNoRes.innerHTML = "<small class='text-danger'>Enter atleast 4 characters</small>";
-                } else{
-                    phoneNoRes.innerHTML = "";
-                }
-            }
-            else if (e == 'password') {
-                if(password.value == ''){
-                    passwordRes.innerHTML = "<small class='text-danger'>Enter your Password</small>";
-                } else if (password.value.length <= 3) {
-                    passwordRes.innerHTML = "<small class='text-danger'>Enter atleast 4 characters</small>";
-                } else{
-                    passwordRes.innerHTML = "";
-                }
-            }
-            if(fName.value.length > 0 && fNameRes.innerHTML == "" && email.value.length > 0 && emailRes.innerHTML == "" && phoneNo.value.length > 0 && phoneNo.innerHTML == "" && password.value.length > 0){
-                createAccBtn.disabled=false;
-            }else{
-                createAccBtn.disabled=true;
-            }
-        }
-
-        // This is the password show and hide function
-		togimage=()=>{
-			if (mypassword.type == "password") {
-				mypassword.type = "text";
-				imgmi.src="/images/icons/eyeclose.png";
-			} else {
-				mypassword.type = "password";
-				imgmi.src="/images/icons/eye.png";
-			}
-		}
-
+    <script src="assets/js/app.js"></script>
+    <script>
         // loading icon and the text
-        let loadbtn = document.getElementById('loader');
+        let regloadbtn = document.getElementById('regloader');
         let registerBtn = document.getElementById('registerBtn');
         $(document).ready(function() {
             
@@ -185,32 +131,33 @@
             $('#registForm').submit(function(e) {
                 e.preventDefault();
                 registerBtn.hidden=true;  
-                loadbtn.hidden=false;
+                regloadbtn.hidden=false;
                 
                 regRequest();
             });
 
             async function regRequest() {
-                let payload = { fullname: fName.value, email: email.value, phone: phoneNo.value, accountType: $("input[name='accountType']:checked").val(), password: password.value };
+                let payload = { full_name: fName.value, email: email.value, phone: phoneNo.value, account_type: $("input[name='accountType']:checked").val(), password: password.value };
                 try {
                     let res = await axios.post('https://api-collections.creditclan.com/api/v2/account/register', payload);
 
                     let resData = res.data;
                     if(resData.status == true){
-                        registerMessage.innerHTML = "Registered Successfully. Redirecting to Login page";
-                        location.href = 'login.html';
+                        registerMessage.innerHTML = "Redirecting to Authenticate your phone";
+                        location.href = 'verify_code.html';
                     } else {
                         registerMessage.innerHTML = resData.message;
                     }
                     registerBtn.hidden = false;  
-                    loadbtn.hidden = true;
+                    regloadbtn.hidden = true;
                 } catch (error){
                     registerMessage.innerHTML = "Error connecting";
                     registerBtn.hidden = false;  
-                    loadbtn.hidden = true;
+                    regloadbtn.hidden = true;
                 }
             }
         });
-	</script>
+
+    </script>
 </body>
 </html>

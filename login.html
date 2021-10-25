@@ -29,35 +29,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js" integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
 </head>
 <body>
-
-  <!-- Navigation -->
-   <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="/">NODE CLASS</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/chat">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/login">Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 p-5" style="background:#45608D; height: 100vh">
+            <div class="col-md-6 p-5 d-flex flex-wrap align-content-center signImage wrapperColor" style="height: 100vh">
                 <div class="mx-auto w-75">
                     <img src="assets/images/app_icon.svg" class="img-fluid" />
                     <div class="text-center text-white mt-5">
@@ -65,22 +42,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6" style="background: #F0F0F0; height: 100vh">
+            <div class="col-xs-12 col-sm-12 col-md-6 d-flex flex-wrap justify-content-center align-content-center" style="background: #F0F0F0; height: 100vh">
                 <div class="text-secondary">
-                    <span class="fa fa-creditclan mx-auto text-center"></span>
-                    <h5 class="text-center">Sign in</h5>
-                    <div class="card border-0 mx-auto algin-self-center" style="width: 80%">
+                    <div class="text-center">
+                        <img class="img-fluid topLogo my-3" src="assets/images/creditclan.png" alt="creditclan.png" width="30" />
+                        <h5 class=" my-3">Sign in</h5>
+                    </div>
+                    <div class="card border-0" style="width: 350px;">
                         <div class="card-body">
                             <form id="logForm" class="form my-3" method="POST">
                                 <span class="small text-success text-center" id="loginMessage"></span>
                                 <div class="form-group my-3">
                                     <label>Email</label>
-                                    <input type="email" name="email" placeholder="hello@example.com" oninput="myinp('email')" class="form-control" id="mymail" required>
+                                    <input type="email" name="email" placeholder="hello@example.com" oninput="loginput('logemail')" class="form-control" id="mymail" required>
                                     <span id="mailRes"></span>
                                 </div>
                                 <div class="form-group my-3">
                                     <label>Password</label>
-                                    <input type="password" name="password" placeholder="Password" oninput="myinp('password')" class="form-control" id="mypass" required>
+                                    <input type="password" name="password" placeholder="Password" oninput="loginput('logpassword')" class="form-control" id="mypass" required>
                                     <span onClick="togimage()" class="btn showPLogBtn">
                                         <img src="assets/images/eye.png" alt='eye-open' id='imgmi' width='25px'/>
                                     </span>
@@ -89,7 +68,9 @@
                                 <a href="#" class="my-5 text-decoration-none">Forget Password?</a>
                                 
                                 <div class="form-group my-3">
-                                    <button type="submit" class="btn form-control shadow text-white" name="loginbtn" id="logbtn" style="background:#7269EF;"><span id="loginBtn">Login </span><span class="fa fa-spin fa-spinner" id="logLoader" hidden=""></span></button>
+                                    <button type="submit" class="btn form-control shadow text-white" name="loginbtn" id="loggerbtn" disabled style="background:#7269EF;">
+                                        <span id="loginBtn">Login </span><span class="fa fa-spin fa-spinner" id="logLoader" hidden=""></span>
+                                    </button>
                                 </div>
                             </form>
                             <p>Don't have an account?<a href="register.html" class="text-decoration-none"> Sign up</a></p>
@@ -100,40 +81,8 @@
             </div>
         </div>
     </div>
+    <script src="assets/js/app.js"></script>
     <script type="text/javascript">
-        logbtn.disabled=true;
-        let state = false;
-
-        myinp=(e)=>{
-            if (e == 'email') {
-                if(mymail.value == ''){
-                    mailRes.innerHTML = "<small class='text-danger'>Enter your email</small>";
-                } else{
-                    mailRes.innerHTML = "";
-                }
-            }
-            else if (e == 'password') {
-                if(mypass.value == ''){
-                    passRes.innerHTML = "<small class='text-danger'>Enter your Password</small>";
-                } else{
-                    passRes.innerHTML = "";
-                }
-            }
-            if(mymail.value != "" && mailRes.innerHTML == "" && mypass.value != "" && passRes.innerHTML == ""){
-                logbtn.disabled = false;
-            }
-        }
-
-        togimage=()=>{
-			if (myinput.type == "password") {
-				myinput.type = "text";
-				imgmi.src="assets/images/eyeclose.png";
-			} else {
-				myinput.type = "password";
-				imgmi.src="assets/images/eye.png";
-			}
-		}
-
         let loadbtn = document.getElementById('logLoader');
         let loginBtn = document.getElementById('loginBtn');
         $(document).ready(function() {
@@ -144,14 +93,6 @@
                 loadbtn.hidden=false;
                 
                 loginRequest();
-                // axios.post('https://api-collections.creditclan.com/api/v2/account/login', loginData)
-                // .then(response => {
-                //     const resData = response.data;
-                //     console.log(resData);
-                // })
-                // .catch(error => console.error(error));
-                // <!-- loginBtn.hidden = false;  
-                // loadbtn.hidden = true; -->
             });
             
             async function loginRequest() {
@@ -162,15 +103,17 @@
                     let res = await axios.post('https://api-collections.creditclan.com/api/v2/account/login', payload);
 
                     let data = res.data;
+                    console.log(res);
                     if(data.status == true){
                         loginMessage.innerHTML = "Login Successful. Redirecting to Dashboard";
-                        location.href = 'index.html';
+                        location.href = 'dashboard.html';
                     } else{
                         loginMessage.innerHTML = data.message;
                     }
                     loginBtn.hidden=false;  
                     loadbtn.hidden=true;
                 } catch (error){
+                    console.log(error);
                     loginMessage.innerHTML = "Error connecting";
                     loginBtn.hidden=false;  
                     loadbtn.hidden=true;
