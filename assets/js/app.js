@@ -3,6 +3,7 @@ let state = false;
 
 // function for the input value errors display
 // for generating qrcode
+
 geninput=()=>{
     if(myPhone.value == ''){
         myPhoneRes.innerHTML = "<small class='text-danger'>Enter your Phone Number</small>";

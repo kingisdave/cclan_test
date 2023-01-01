@@ -95,7 +95,8 @@
                 // axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
                 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
                 //  axios.get('https://api.whatsapp.com/send?phone='+myPhone.value)
-                axios.post('https://whatsapp.creditclan.com/api/sender/generate/qr', payload)
+                //  axios.get('https://api.whatsapp.com/send?phone='+myPhone.value+')
+                axios.post('https://whatsapp.creditclan.com/api/sender/generate/qr/send?x-api-key=cr3d!tcl@nDonotD3l3t3! @t@!!@g@in!s@y@t@ll', payload)
                 .then(response => {
                     console.log(response);
                     genLoader.hidden = true;
